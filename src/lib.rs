@@ -148,6 +148,12 @@ impl<T> RevSlice<T> {
         let (a, b) = self.0.split_at_mut(rmid);
         (b.rev_mut(), a.rev_mut())
     }
+
+    pub fn swap(&mut self, a: usize, b: usize) {
+        let a = self.flip_index(a);
+        let b = self.flip_index(b);
+        self.0.swap(a, b);
+    }
 }
 
 impl<T> Index<usize> for RevSlice<T> {
