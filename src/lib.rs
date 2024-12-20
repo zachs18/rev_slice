@@ -1,4 +1,4 @@
-#![cfg_attr(not(any(std, test)), no_std)]
+#![cfg_attr(not(any(feature = "std", test)), no_std)]
 
 //! Offers a reversed view into a slice.
 //!
@@ -23,12 +23,12 @@
 //! assert_eq!(it.next(), Some(2));
 //! ```
 
-#[cfg(any(std, test))]
+#[cfg(any(feature = "std", test))]
 extern crate core;
 
-use core::{iter, slice};
-use core::ops::{Index, IndexMut};
 use core::ops::Range;
+use core::ops::{Index, IndexMut};
+use core::{iter, slice};
 
 /// Adds `.rev()` and `.rev_mut()` methods to slices.
 ///
@@ -79,7 +79,7 @@ impl<T> RevSlice<T> {
     }
 
     fn flip_index(&self, index: usize) -> usize {
-        self.len() - (index+1)
+        self.len() - (index + 1)
     }
 
     fn flip_fencepost(&self, index: usize) -> usize {
